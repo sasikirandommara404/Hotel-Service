@@ -1,0 +1,3 @@
+2025-09-15T11:47:21.243Z [[31merror[39m]: 500 - Not enough availability for 2025-09-17 - /api/hotels/book - POST - ::1
+2025-09-15T11:48:22.730Z [[31merror[39m]: 500 - next is not defined - /api/hotels/bookings/BK_1754283167133_5twbkty8g - GET - ::1
+2025-09-15T11:49:20.079Z [[31merror[39m]: 500 - Booking not found - /api/hotels/bookings/BK_1754283167133_5twbkty8g - GET - ::1

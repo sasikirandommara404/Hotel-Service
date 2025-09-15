@@ -3,10 +3,14 @@ import {
   createBooking,
   fetchBookingById
 } from '../services.Hotels/hotelsService.js';
+import AppError from '../utils.Hotels/appError.js';
 
-export const searchHotels = async (req, res) => {
+export const searchHotels = async (req, res,next) => {
   try {
     const results = await findHotels(req.body);
+    if(results.length === 0){
+      throw new AppError('No hotels found matching the criteria', 404);
+    }
     res.status(200).json({ 
       success: true, 
       data: results,
@@ -17,19 +21,16 @@ export const searchHotels = async (req, res) => {
       }
     });
   } catch (err) {
-    res.status(400).json({ 
-      success: false, 
-      error: {
-        code: "SEARCH_ERROR",
-        message: err.message
-      }
-    });
+    next(err);
   }
 };
 
-export const bookHotel = async (req, res) => {
+export const bookHotel = async (req, res,next) => {
   try {
     const booking = await createBooking(req.body);
+    if(!booking){
+      throw new AppError("Failed to book hotel", 500);
+    }
     res.status(201).json({ 
       success: true, 
       data: booking,
@@ -39,19 +40,16 @@ export const bookHotel = async (req, res) => {
       }
     });
   } catch (err) {
-    res.status(400).json({ 
-      success: false, 
-      error: {
-        code: "BOOKING_ERROR",
-        message: err.message
-      }
-    });
+    next(err);
   }
 };
 
-export const getBookingDetails = async (req, res) => {
+export const getBookingDetails = async (req, res,next) => {
   try {
     const booking = await fetchBookingById(req.params.id);
+    if (!booking) {
+      throw new AppError(`Booking with ID ${req.params.id} not found`, 404);
+    }
     res.status(200).json({ 
       success: true, 
       data: booking,
@@ -60,13 +58,8 @@ export const getBookingDetails = async (req, res) => {
       }
     });
   } catch (err) {
-    res.status(404).json({ 
-      success: false, 
-      error: {
-        code: "BOOKING_NOT_FOUND",
-        message: err.message
-      }
-    });
+    next(err);
+   
   }
 };
   

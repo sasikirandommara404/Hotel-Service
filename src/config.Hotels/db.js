@@ -1,11 +1,19 @@
 import mongoose from "mongoose";
+import logger from "../utils.Hotels/logger.js";
 
 const connectDB = async () =>{
     try {
-        await mongoose.connect(process.env.MONGO_URI);
-        console.log("MongoDB connected");
+        await mongoose.connect(process.env.MONGO_URI,{
+            useNewUrlParser:true,
+            useUnifiedTopology:true,
+            maxPoolSize:10,
+            serverSelectionTimeoutMS:5000,
+            socketTimeoutMS:45000
+
+        });
+        logger.info("MongoDB connected");
     } catch (error) {
-        console.log(error);
+        logger.error(error.message);
         process.exit(1);
     }
 }

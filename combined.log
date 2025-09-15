@@ -1,0 +1,11 @@
+2025-09-15T11:42:43.781Z [[32minfo[39m]: MongoDB connected
+2025-09-15T11:44:16.034Z [[32minfo[39m]: MongoDB connected
+2025-09-15T11:45:09.461Z [[32minfo[39m]: MongoDB connected
+2025-09-15T11:45:23.880Z [[32minfo[39m]: MongoDB connected
+2025-09-15T11:45:33.005Z [[32minfo[39m]: MongoDB connected
+2025-09-15T11:47:21.243Z [[31merror[39m]: 500 - Not enough availability for 2025-09-17 - /api/hotels/book - POST - ::1
+2025-09-15T11:48:12.601Z [[32minfo[39m]: MongoDB connected
+2025-09-15T11:48:22.730Z [[31merror[39m]: 500 - next is not defined - /api/hotels/bookings/BK_1754283167133_5twbkty8g - GET - ::1
+2025-09-15T11:48:53.958Z [[32minfo[39m]: MongoDB connected
+2025-09-15T11:48:56.537Z [[32minfo[39m]: MongoDB connected
+2025-09-15T11:49:20.079Z [[31merror[39m]: 500 - Booking not found - /api/hotels/bookings/BK_1754283167133_5twbkty8g - GET - ::1
