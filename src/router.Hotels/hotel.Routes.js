@@ -13,7 +13,7 @@ import {hotelBookingSchema} from '../validation/bookinginputValidation.js';
 const router = express.Router();
 
 // POST /api/hotels/search
-router.post('/search',validateInputData(hotelSearchSchema),searchHotels);
+router.post('/search',validateInputData(hotelSearchSchema),authenticate,authorize, searchHotels);
 
 // POST /api/hotels/book
 router.post('/book',validateInputData(hotelBookingSchema), bookHotel);

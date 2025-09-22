@@ -10,11 +10,12 @@ export const authenticate = (req, res, next) => {
             throw new AppError('You are not logged in! Please log in to get access.', 401);
 
         }
-        jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+        jwt.verify(token, process.env.JWT_KEY, (err, decoded) => {
             if(err) {
                 throw new AppError('Invalid token. Please log in again!', 401);
             }
             req.user = decoded.id;
+            next();
        
         })
         next();
@@ -29,7 +30,7 @@ export const authorize = (req,res,next) => {
         if(!req.user) {
             throw new AppError('Unauthorized: no user found ', 403);
         }
-        if (req.user.role !== 'user') {
+        if (req.user.role === 'admin') {
             throw new AppError('You do not have permission to book a room.', 403);
         }
         next();
