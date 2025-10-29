@@ -1,0 +1,10 @@
+global:
+  scrape_interval:     45s
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ["prom-server:9090"]
+  - job_name: 'hotelservice'
+    static_configs:
+      - targets: ['hotelservice:3005']
+

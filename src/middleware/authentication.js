@@ -1,7 +1,10 @@
 import AppError from "../utils.Hotels/appError.js";
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv'
+dotenv.config({path:'../../.env'})
 export const authenticate = (req, res, next) => {
     try{
+        console.log(process.env.JWT_KEY)
         let token;
         if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
             token = req.headers.authorization.split(" ")[1];

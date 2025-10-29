@@ -155,14 +155,24 @@ export const createBooking = async (bookingData) => {
     
     for (let date = new Date(startDate); date < endDate; date.setDate(date.getDate() + 1)) {
       const dateStr = date.toISOString().split('T')[0];
-      const roomInventory = inventory.find(inv =>
+      let roomInventory = inventory.find(inv =>
         inv.hotelId === hotelId &&
         inv.roomType === roomDetails.roomType &&
         inv.date === dateStr
       );
 
-      if (!roomInventory || roomInventory.available < roomDetails.roomCount) {
-        throw new Error(`Not enough availability for ${dateStr}`);
+      if (!roomInventory) {
+        roomInventory = {
+          hotelId,
+          roomType: roomDetails.roomType,
+          date: dateStr,
+          available:10,
+          booked:0
+        }
+        inventory.push(roomInventory)
+      }
+      if (roomInventory.available < roomDetails.roomCount){
+        throw new Error(`Not enough availability for ${dateStr}`)
       }
     }
 

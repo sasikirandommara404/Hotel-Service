@@ -15,16 +15,33 @@ let token = jwt.sign(
         expiresIn:'24h'
     }
 )
+
+// Helper function to get future dates
+const getFutureDates = () => {
+    const checkInDate = new Date();
+    checkInDate.setDate(checkInDate.getDate() + 30); // 30 days from now
+    
+    const checkOutDate = new Date(checkInDate);
+    checkOutDate.setDate(checkOutDate.getDate() + 5); // 5 days after check-in
+    
+    return {
+        checkIn: checkInDate.toISOString().split('T')[0],
+        checkOut: checkOutDate.toISOString().split('T')[0]
+    };
+};
+
 describe("test hotel services controlles",()=>{
     it("it fetch available hotes",async ()=>{
+        const dates = getFutureDates();
+        
         const response = await request(app)
         .post('/api/hotels/search')
         .set('Authorization',`Bearer ${token}`)
         .send({
             "location": "Mumbai",
             "dates": {
-                "checkIn": "2025-09-22",
-                "checkOut": "2025-09-27"
+                "checkIn": dates.checkIn,
+                "checkOut": dates.checkOut
             },
             "guests": {
                 "adults": 2,
@@ -40,6 +57,8 @@ describe("test hotel services controlles",()=>{
 
     });
     it("it provide booking id",async ()=>{
+        const dates = getFutureDates();
+        
         const response = await request(app)
         .post('/api/hotels/book')
         .set('Authorization',`Bearer ${token}`)
@@ -52,8 +71,8 @@ describe("test hotel services controlles",()=>{
                 "guestCount": 2
             },
             "dates": {
-                "checkIn": "2025-09-22",
-                "checkOut": "2025-09-27"
+                "checkIn": dates.checkIn,
+                "checkOut": dates.checkOut
             },
             "guestDetails": [
                 {
@@ -83,6 +102,3 @@ describe("test hotel services controlles",()=>{
 
         
 })
-
-
-

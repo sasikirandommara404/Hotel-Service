@@ -205,7 +205,7 @@ const hotelSchema = new mongoose.Schema({
     required: true
   }
 }, {
-  timestamps: true, // Adds createdAt and updatedAt fields
+  timestamps: true, 
   collection: 'hotels'
 });
 

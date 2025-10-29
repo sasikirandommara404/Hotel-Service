@@ -1,0 +1,31 @@
+version: "3"
+services:
+  hotelservice:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hotelservice
+    restart: always
+    ports:
+      - "3005:3005"
+    environment:
+      - PORT=3005
+      - JWT_KEY=690c8755750918ad51c7e048ab9685d1d50639346cc7509e21b5f9dbeff1098f8f99a1abfd8742f0594584d686a363fdc2a41f0c23fcd249b4128281861d735b
+      - MONGO_URI=mongodb://mongo:27017/hotelservice
+    networks:
+      - monitor-net
+    
+
+  prom-server:
+    image: prom/prometheus
+    container_name: prom-server-hotel
+    restart: always
+    ports:
+      - "9091:9090"
+    volumes:
+      - ./prometheus-config.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - monitor-net
+networks:
+  monitor-net:
+    driver: bridge
